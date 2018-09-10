@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body style="background-color:#367BB6" ng-app="directoryApp">
+      <div class="container">
+         <div class="row">
+            <h1 style="color:white;">UF Directory App</h1>
+         </div>
+         <div class="row" ng-controller="ListingsController">
+            <div class="col-md-6">
+               <div class="input-group" id="searchBar">
+                  <!-- 
+                     Implement a way to filter through listings using the search bar 
+                     
+                     -->
+                  <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-search"></span></span>
+                  <input type="text" class="form-control" placeholder="Search" ng-model="inputSearch">
+               </div>
+               <div class="tableWrapper">
+                  <table class="table table-hover" id="searchResults">
+                     <tr>
+                        <th bgcolor='e6e6e6'>Code</th>
+                        <th bgcolor='e6e6e6'>Building Name</th>
+                        <th bgcolor='e6e6e6'</th>
+                     </tr>
+                     <!--
+                        Fill in the rest of the table:
+                            * populate the rows with the code and name of each listing
+                            * include a way to remove individual listings
+                        -->
+                     <tbody
+                     <tr ng-repeat="item in listings | filter: inputSearch" ng-click="showDetails(listings.indexOf(item))">
+                        <td bgcolor="#ffffff">{{item.code}}</td>
+                        <td bgcolor="#ffffff">{{item.name}}</td>
+                        <td bgcolor='ffffff' ><button class="btn btn-default pull-right" type="button" ng-click="deleteListing(listings.indexOf(item))"/>
+                           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        </td>
+                     </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <!--
+                  Write an HTML form that adds new listings to the directory
+                  -->
+               <form  ng-click="resetDetailInfo()" name="addForm">
+                  <div id="addInputBlock">
+                     <div class="col-md-6"><input type="text" class="form-group" placeholder="Code" ng-model="addInput.code" required></div>
+                     <div class="col-md-6"><input type="text" class="form-group" placeholder="Name" ng-model="addInput.name" required></div>
+                     <div class="col-md-6"><input type="text" class="form-group" placeholder="Latitude" ng-model="addInput.coordinates.latitude"></div>
+                     <div class="col-md-6"><input type="text" class="form-group" placeholder="Longitude" ng-model="addInput.coordinates.longitude"></div>
+                     <div class="col-md-6"><input type="text" class="form-group" placeholder="Address" ng-model="addInput.address"></div>
+                  </div>
+                  <button class="btn btn-warning btn-block" type="button" id="addButton" ng-click="addListing()" ng-disabled="addForm.$invalid">Add to end of list</button>
+               </form>
+               <div class="jumbotron">
+                  <h2 id="detailedInformation">Detailed Information</h2>
+                  <h4>Code: {{detailedInfo.code}}</h4>
+                  <h4>Name: {{detailedInfo.name}}</h4>
+                  <h4>Latitude: {{detailedInfo.coordinates.latitude}}</h4>
+                  <h4>Longitude: {{detailedInfo.coordinates.longitude}}</h4>
+                  <h4>Address: {{detailedInfo.address}}</h4>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+      <script src="https://code.angularjs.org/1.4.3/angular.js"></script>
+      <script src="app.js"></script>
+      <script src="listingController.js"></script>
+      <script src="listingFactory.js"></script>
+   </body>
+</html>
